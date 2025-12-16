@@ -1,25 +1,7 @@
 # Helper functions 
 These are like calling `rect()` or `triangle()`, in the background p5js does all the calculations for you. For these though the code isn't hidden, it will live at the bottom of your screen. 
 
-## How to rotate things:
-
-copy this to the bottom of your code, **do not edit this**. 
-```js
-function drawRotatingShape(x, y, size, angle, drawFn) {
-  push();
-  translate(x, y);
-  rotate(angle);
-  drawFn(size);
-  pop();
-}
-```
-Inside of draw you have to use **THIS WHOLE CODE** brackes and all:
-```js
-  drawRotatingShape(200, 200, 50, 45, (size) => {
-    rect(0, 0, 50, 100);// replace this with the things you want to rotate
-    });// remember this too!
-```
-## How to skip count using Modulo
+## How to skip count inside for loops using Modulo
 The modulo operator (`%`) returns the remainder of a division operation, often used to determine cyclic patterns or boundaries, such as wrapping around indices in a loop or checking for even/odd numbers (`n % 2 === 0` for even). It’s particularly useful for alternating colours, or having repeating patterns. 
 
 ```js
@@ -41,6 +23,7 @@ copy this polygon helper function to the bottom of your code.  **do not edit thi
 
 ```javascript
 function polygon(x, y, radius, npoints) {
+  angleMode(RADIANS)
   const angle = 360 / npoints; // Calculate angle in degrees   
   beginShape();
   for (let i = 0; i < npoints; i++) {
@@ -61,6 +44,7 @@ polygon(100, 100, 80, 5)//x,y,size,how many points
 copy this star helper function to the bottom of your code, **do not edit it**:
 ```js
 function drawStar(x, y, radius1, radius2, npoints) {
+  angleMode(RADIANS)
   const angle = TWO_PI / npoints; // Calculate angle in radians
   beginShape();
   for (let i = 0; i < npoints; i++) {
