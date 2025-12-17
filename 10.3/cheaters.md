@@ -1,0 +1,167 @@
+# "Cheat Sheet" Snippets 
+
+## Movement & Control
+
+### Smooth Sprite Movement (WASD / Arrows)
+
+This uses a single object to hold all your player's data. Put this inside the `draw()` loop.
+
+```javascript
+let sprite = {
+  cx: 200,
+  cy: 200,
+  speed: 5,
+  size: 50
+};
+
+function draw() {
+  background(220);
+  
+  
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) { // A
+    sprite.cx -= sprite.speed;
+  }
+  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) { //D
+    sprite.cx += sprite.speed;
+  }
+  if (keyIsDown(UP_ARROW) || keyIsDown(87)) { // W
+    sprite.cy -= sprite.speed;
+  }
+  if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) { //S
+    sprite.cy += sprite.speed;
+  }// Movement Logic
+  
+}
+
+```
+
+### Jump Logic (Gravity)
+
+Using an object to handle physics.
+
+```javascript
+let player = {
+  cy: 350,
+  speed: 0,
+  gravity: 0.8,
+  floor: 350
+}
+
+function draw() {
+  background(220);
+  
+  player.cy += player.speed; // Apply movement
+  player.speed += player.gravity; // Apply gravity
+
+  if (player.cy > player.floor) { // Floor collision
+    player.cy = player.floor;
+    player.speed = 0;
+  }
+  
+  ellipse(width/2, player.cy, 40, 40);
+}
+
+function keyPressed() {
+  if (key === ' ' && player.cy === player.floor) { // Spacebar to jump
+    player.speed = -15; 
+  }
+}
+
+```
+
+---
+
+## Collision & Interaction
+
+### The "Hitbox" (Distance Check)
+
+Check if your sprite object is touching an enemy.
+
+```javascript
+let enemy = {
+  cx: 100,
+  cy: 100
+}
+
+
+// dist(x1, y1, x2, y2)
+let d = dist(sprite.cx, sprite.cy, enemy.cx, enemy.cy);
+
+if (d < 30) { 
+  // Triggered when touching!
+  fill(255, 0, 0); 
+  score -= 1;
+}
+
+```
+
+### The "Clickable Button" Logic
+
+Inside `mousePressed()`, check if the mouse is within a specific rectangle.
+
+```javascript
+function mousePressed() {
+  // Check if click is inside a box at (50, 50) with width 100 and height 50
+  if (mouseX > 50 && mouseX < 150 && mouseY > 50 && mouseY < 100) {
+    mode = "PLAY";
+  }
+}
+
+```
+
+---
+
+## Game Systems
+
+### Simple Timer (Countdown)
+
+```javascript
+let timer = 30;
+
+function draw() {
+  // frameCount % 60 is true roughly every 1 second
+  if (frameCount % 60 === 0 && timer > 0) { 
+    timer--;
+  }
+  
+  textSize(20);
+  text("Time: " + timer, 20, 20);
+  
+  if (timer === 0) {
+    mode = "GAME OVER";
+  }
+}
+
+```
+
+### Random Spawning
+
+Makes an object appear at a random spot when it leaves the screen.
+
+```javascript
+let enemy = {
+ cx: 400,
+ cy: 200,
+speed: 4 };
+
+function draw() {
+  enemy.cx -= enemy.speed;
+
+  if (enemy.cx < 0) {
+    enemy.cx = width;
+    enemy.cy = random(20, height - 20); // Random height
+  }
+}
+
+```
+
+---
+
+### The Console Debugger
+
+If your variables aren't doing what you expect, "print" them to the console to see their value in real-time. Use this inside `draw()` or `mousePressed()`.
+
+```javascript
+print("Sprite cX: " + sprite.cx + " Sprite cY: " + sprite.cy);
+
+```
