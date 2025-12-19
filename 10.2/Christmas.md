@@ -1,10 +1,10 @@
 ```js
 let cx = 200;
 let cy = 120;
+let rot = 0
 
 function setup() {
   createCanvas(400, 600);
-  angleMode(RADIANS);
 }
 
 function draw() {
@@ -12,11 +12,21 @@ function draw() {
   noStroke();
   fill(34, 139, 34);
 
+//star
+  push()
+    translate(200, 100)
+      
+      
+    //drawStar(   )
+  pop()
+
+
   // top
   push();
     translate(cx, cy);
  // missing something 
     triangle(0, 0,-40, 80, 40, 80 );
+    //drawOrnament( )
   pop();
 
   // mid
