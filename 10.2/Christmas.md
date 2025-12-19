@@ -67,11 +67,15 @@ function drawStar(x, y, radius1, radius2, npoints) {
 
 
 function drawOrnament(x, y, size, r, g, b) {
-  push()
-  // Pulsing glow using sin
-  let glow = map(sin(frameCount * 0.08), -1, 1, 20, 60);
+  push();
 
-  // Glow (drawn first, larger, transparent)
+  // Larger ornaments glow more and slower
+  let speed = map(size, 10, 30, 0.01, 0.2);
+  let amplitude = size * 2;
+
+  let glow = sin(frameCount * speed) * amplitude;
+
+  // Glow layer
   noStroke();
   fill(r, g, b, 80);
   ellipse(x, y, size + glow);
@@ -80,11 +84,13 @@ function drawOrnament(x, y, size, r, g, b) {
   fill(r, g, b);
   ellipse(x, y, size);
 
-  // Small highlight to make it look shiny
+  // Highlight
   fill(255, 180);
-  ellipse(x - size * 0.2, y - size * 0.2, size * 0.25);
-  pop()
+  ellipse(x - size * 0.2,y - size * 0.2,size * 0.25);
+
+  pop();
 }
+
 
 
 
